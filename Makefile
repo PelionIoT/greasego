@@ -26,8 +26,6 @@ DEBUG_CFLAGS= -g -DERRCMN_DEBUG_BUILD
 ROOT_DIR=.
 OUTPUT_DIR=.
 
-
-
 EXTRA_TARGET=
 
 CFLAGS+= -fPIC $(DEBUG_CFLAGS) -DGREASE_LIB
@@ -59,6 +57,18 @@ OBJS_NAMES= $(SRCS_CPP:%.cc=$%.o) $(SRCS_C:%.c=%.o)
 ## that the object file created for the static library will be 
 ## overwritten. That's not bad, however, because we have a static 
 ## library that already contains the needed object file.
+
+.PHONY:
+all: deps
+	./build.sh
+
+.PHONY:
+deps: deps/src/greaseLib/deps/libuv-v1.10.1/build/gyp
+	./deps/src/greaseLib/deps/install-deps.sh
+	./build-deps.sh
+
+deps/src/greaseLib/deps/libuv-v1.10.1/build/gyp:
+	git clone https://chromium.googlesource.com/external/gyp.git $@
 
 $(OUTPUT_DIR)/%.o: %.cc
 	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $< -o $@
