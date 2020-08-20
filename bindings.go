@@ -24,6 +24,8 @@
 
 // +build arm,cgo arm64,cgo amd64,cgo
 
+package greasego
+
 /*
 #cgo CFLAGS: -I./deps/include
 #cgo CFLAGS: -DDEBUG_BINDINGS
@@ -42,8 +44,6 @@
 #include "grease_lib.h"
 #include "bindings.h"
 */
-package greasego
-
 import "C"
 
 import (
