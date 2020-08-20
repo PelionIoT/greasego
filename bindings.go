@@ -1,45 +1,3 @@
-package greasego
-
-// see notes here on libtcmalloc issues: https://github.com/gperftools/gperftools/issues/39
-
-/*
-#cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu -L${SRCDIR}/deps/lib
-#cgo LDFLAGS: -lgrease -lstdc++ -lm -ltcmalloc_minimal
-#cgo CFLAGS: -I${SRCDIR}/deps/include DEBUG(-DDEBUG_BINDINGS)
-#define GREASE_IS_LOCAL 1
-#include <stdio.h>
-#include <stdlib.h>
-#include "grease_lib.h"
-#include "bindings.h"
-*/
-import "C"
-
-// import "C" has to be on it's own line, or go compiler freaks out
-import (
-	"fmt"
-	"reflect"
-	"strings"
-	"sync"
-	"unsafe"
-	//	"sync/atomic"
-)
-
-// no longer including these, as they are statically in libgrease: -luv -lTW
-//-static-libgcc
-// # cgo LDFLAGS: /usr/lib/x86_64-linux-gnu/libunwind-coredump.so.0
-
-// I can't get this to work right now. I think when the fix for cgo command is put in it will:
-// https://github.com/golang/go/issues/16651
-/*
-# cgo LDFLAGS: -L/usr/lib/gcc/x86_64-linux-gnu/4.8
-# cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu -Wl,-Bdynamic /usr/lib/x86_64-linux-gnu/libunwind-coredump.so.0 -Wl,-Bstatic
-# cgo LDFLAGS: -Wl,-whole-archive ${SRCDIR}/deps/lib/libtcmalloc_minimal.a -Wl,-no-whole-archive
-# cgo LDFLAGS: /usr/lib/gcc/x86_64-linux-gnu/4.8.4/libstdc++.a ${SRCDIR}/deps/lib/libgrease.a ${SRCDIR}/deps/lib/libuv.a ${SRCDIR}/deps/lib/libTW.a ${SRCDIR}/deps/lib/libre2.a  -lstdc++ /usr/lib/x86_64-linux-gnu/libm.a
-# cgo CFLAGS: -I${SRCDIR}/deps/include
-# define GREASE_IS_LOCAL 1
-# include "grease_lib.h"
-*/
-
 //
 // Copyright (c) 2019 ARM Limited and affiliates.
 //
@@ -63,6 +21,38 @@ import (
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+
+// +build arm,cgo arm64,cgo amd64,cgo
+
+/*
+#cgo CFLAGS: -I./deps/include
+#cgo CFLAGS: -DDEBUG_BINDINGS
+
+#cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu
+#cgo LDFLAGS: -L./deps/lib
+#cgo LDFLAGS: -lgrease
+#cgo LDFLAGS: -lstdc++
+#cgo LDFLAGS: -lm
+#cgo LDFLAGS: -ltcmalloc_minimal
+
+#define GREASE_IS_LOCAL 1
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "grease_lib.h"
+#include "bindings.h"
+*/
+package greasego
+
+import "C"
+
+import (
+	"fmt"
+	"reflect"
+	"strings"
+	"sync"
+	"unsafe"
+)
 
 const GREASE_LIB_OK int = 0
 const GREASE_LIB_NOT_FOUND int = 0x01E00000
