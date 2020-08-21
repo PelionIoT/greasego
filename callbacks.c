@@ -46,6 +46,12 @@
 #define IF_DBG( x ) {}
 #endif
 
+// Go Functions
+extern void do_startGreaseLib_cb();
+extern void do_commonTargetCB();
+extern void do_addTargetCB();
+extern void do_childClosedFDCallback();
+
 // The gateway function
 void greasego_startGreaseLibCB(int in)
 {
