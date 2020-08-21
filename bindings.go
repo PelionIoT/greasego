@@ -22,20 +22,21 @@
 // SOFTWARE.
 //
 
-// +build arm,cgo arm64,cgo amd64,cgo
+// +build arm arm64 amd64
 
 package greasego
 
 /*
-#cgo CFLAGS: -I./deps/include
-#cgo CFLAGS: -DDEBUG_BINDINGS
+#cgo CFLAGS: -I./greaseLib
+#cgo CFLAGS: -I./gperftools-2.4/src
+//#cgo CFLAGS: -DDEBUG_BINDINGS
 
-#cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu
-#cgo LDFLAGS: -L./deps/lib
-#cgo LDFLAGS: -lgrease
-#cgo LDFLAGS: -lstdc++
+//#cgo LDFLAGS: -L/usr/lib/x86_64-linux-gnu
+//#cgo LDFLAGS: -L./deps/lib
+//#cgo LDFLAGS: -lstdc++
 #cgo LDFLAGS: -lm
-#cgo LDFLAGS: -ltcmalloc_minimal
+//#cgo LDFLAGS: -lgrease
+//#cgo LDFLAGS: -ltcmalloc_minimal
 
 #define GREASE_IS_LOCAL 1
 

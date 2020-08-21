@@ -14,7 +14,7 @@
     Copyright (c) 2019, Arm Limited and affiliates.
 
     SPDX-License-Identifier: MIT
-    
+
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
     in the Software without restriction, including without limitation the rights
@@ -53,7 +53,7 @@
 #define LIB_METHOD( name, ... ) int GreaseLib_##name( GreaseLibCallback libCB, ## __VA_ARGS__ )
 #define LIB_METHOD_FRIEND( name, ... ) friend int ::GreaseLib_##name( GreaseLibCallback libCB, ## __VA_ARGS__ )
 
-#define LIB_METHOD_SYNC( name, ... ) int GreaseLib_##name( __VA_ARGS__ )
+#define LIB_METHOD_SYNC( name, ... ) extern int GreaseLib_##name( __VA_ARGS__ )
 #define LIB_METHOD_SYNC_FRIEND( name, ... ) friend int ::GreaseLib_##name( __VA_ARGS__ )
 
 #ifdef __cplusplus
